@@ -4,7 +4,9 @@
       <section class="md:ml-auto md:w-3/4 md:flex">
         <div class="md:flex-1">
           <header>
-            <h2 class="md:text-3xl lg:text-5xl font-medium">Ribeirão Preto</h2>
+            <h2 class="md:text-3xl lg:text-5xl font-medium">
+              {{ getCity }}
+            </h2>
           </header>
           <article class="mt-4">
             <ul>
@@ -65,6 +67,38 @@ export default {
         },
       ]
     }
+  },
+  computed: {
+    getCity() {
+      return this.$store.state.city
+    },
+    getData() {
+      return this.$store.state.data
+    }
+  },
+  watch: {
+    getCity(value) {
+      if(value){
+        this.getDados()
+      }
+    }
+  },
+  methods: {
+    async getDados() {
+      let username = "imunizacao_public"
+      let password = "qlto5t&7r_@+#Tlstigi"
+      let autorization = 'Basic ' + Buffer.from(`${username}:${password}`, 'binary').toString('base64')
+      const { data } = await this.$axios.$post('https://imunizacao-es.saude.gov.br/_search?scroll=1m', { 
+        headers: {
+          'X-origin': 'https://imunizacao-es.saude.gov.br',
+          'Content-Type': 'application/json',
+          'Authorization': autorization,
+        },
+      })
+      console.log(data)
+      this.$store.commit('setDados', data)
+    },
+     
   }
 }
 </script>
