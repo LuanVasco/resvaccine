@@ -73,33 +73,22 @@ export default {
       return this.$store.state.city
     },
     getData() {
+      // let content = []
+      // let data = this.$store.state.data
+
+      // data.forEach(item => {
+      //   console.log(item._source.estabelecimento_municipio_codigo, this.getCity)
+      //   if(item._source.estabelecimento_municipio_codigo == this.getCity) {
+      //     console.log("FOi")
+      //     content.push(item)
+      //   }
+      // })
+
       return this.$store.state.data
+      
     }
   },
-  watch: {
-    getCity(value) {
-      if(value){
-        this.getDados()
-      }
-    }
-  },
-  methods: {
-    async getDados() {
-      let username = "imunizacao_public"
-      let password = "qlto5t&7r_@+#Tlstigi"
-      let autorization = 'Basic ' + Buffer.from(`${username}:${password}`, 'binary').toString('base64')
-      const { data } = await this.$axios.$post('https://imunizacao-es.saude.gov.br/_search?scroll=1m', { 
-        headers: {
-          'X-origin': 'https://imunizacao-es.saude.gov.br',
-          'Content-Type': 'application/json',
-          'Authorization': autorization,
-        },
-      })
-      console.log(data)
-      this.$store.commit('setDados', data)
-    },
-     
-  }
+  
 }
 </script>
 

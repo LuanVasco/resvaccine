@@ -25,9 +25,8 @@
         </option>
         <option 
           v-for="(city, index) in uf"
-          :value="city.nome" 
+          :value="city.id" 
           :key="index"
-         
         >
           {{ city.nome }}
         </option>
@@ -83,7 +82,9 @@ export default {
         this.getCity(event.target.value)
       }
       if(event.target.id == "cidades") {
-        this.$store.commit('setCity', event.target.value)
+        let cidades = event.target.value
+        cidades = cidades.substring(0, cidades.length - 1)
+        this.$store.commit('setCity', cidades)
       }
     },
     async getCity(state) {
