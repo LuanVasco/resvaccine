@@ -12,21 +12,40 @@
 <script>
 export default {
   data() {
-    return {}  
+    return {
+        
+    }  
   },
-  async asyncData({ $axios, store }) {
-    var raw = JSON.stringify({
+  computed: {
+    getCity() {
+      return this.$store.state.city
+    }
+  },
+  watch: {
+    getCity(value) {
+      console.log(value)
+      this.$store.dispatch('getData')
+    }
+  },
+  
+  async asyncData({ store, $axios }) {
+    const raw = JSON.stringify({
       "query": {
         "bool": {
           "must": [
-            { "match": { "estabelecimento_municipio_nome": "RIBEIRAO PRETO"} },
-            { "match": { "paciente_enumSexoBiologico": "M" }},
-            { "match": { "vacina_descricao_dose": "1ª Dose" }}
+            {
+              "match": {
+                "estabelecimento_municipio_codigo": {
+                  "query": `317020`,
+                  "operator": "and"
+                }
+              }
+            }
           ]
         }
       }
-    });
-
+    })
+    
     const params = {
       method: 'POST',
       body: raw,
@@ -35,16 +54,18 @@ export default {
         "Content-Type": "application/json"
       },
       redirect: 'follow',
-      params: {
-        size: 1000,
-      }
     }
-    
-    const response = await fetch("https://imunizacao-es.saude.gov.br/_search?scroll=1m", params).then(res => res.json());
-    
-    store.commit('setDados', response)
+  
+    try {
+      const response = await fetch("https://imunizacao-es.saude.gov.br/_search?scroll=1m&size=100", params).then(res => res.json());
+      store.commit('setDados', response)
 
-    return response
+      return response
+      
+    } catch(error) {
+      console.error(error);
+    }
+        
   },
 }
 </script>
