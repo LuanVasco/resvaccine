@@ -4,7 +4,8 @@
     <SectionsCidade/>
     <div class="container mx-auto px-4">
       <SectionsFabricante/>
-
+      <SectionsPeopleAge />
+      <SectionsSexo />
     </div>
   </div>
 </template>
@@ -35,8 +36,8 @@ export default {
           "must": [
             {
               "match": {
-                "estabelecimento_municipio_codigo": {
-                  "query": `317020`,
+                "estabelecimento_uf": {
+                  "query": `SP`,
                   "operator": "and"
                 }
               }
@@ -57,10 +58,11 @@ export default {
     }
   
     try {
-      const response = await fetch("https://imunizacao-es.saude.gov.br/_search?scroll=1m&size=100", params).then(res => res.json());
-      store.commit('setDados', response)
+      const response = await fetch("https://imunizacao-es.saude.gov.br/_search?scroll=1m&size=10000", params).then(res => res.json());
 
-      return response
+      store.commit('setDados', response.hits.hits)
+
+      return response.hits.hits
       
     } catch(error) {
       console.error(error);

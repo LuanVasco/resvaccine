@@ -1,5 +1,3 @@
-
-
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -54,10 +52,6 @@ export default {
     '@nuxtjs/axios'
   ],
 
-  axios: {
-    baseURL: 'https://imunizacao-es.saude.gov.br',
-  },
-
   server: {
     port: 8000, // default: 3000
     host: '0.0.0.0', // default: localhost,
@@ -65,6 +59,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    extend(config, ctx) {}
   },
 
 }

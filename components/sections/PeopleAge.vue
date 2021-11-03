@@ -1,7 +1,9 @@
 <template>
-  <section>
+  <section class="my-10">
       <header>
-        <h2 class="md:text-3xl lg:text-5xl font-medium text-center">Fabricantes</h2>
+        <h2 class="md:text-3xl lg:text-5xl font-medium text-center">
+          Idade Vacinados
+        </h2>
       </header>
       <div class="chart">
         <DoughnutChart v-if="getDataGraph" :chartData="chartData" :options="chartOptions" class="line-chart" />
@@ -16,7 +18,7 @@ export default {
   data() {
     return {
       chartData: {
-        labels: ["PFIZER", "JANSSEN", "ASTRAZENECA/FIOCRUZ", "SINOVAC/BUTANTAN"],
+        labels: ["0-20", "21-40", "41-60", "60+"],
         datasets: [
           {
             label: "Numbers",
@@ -46,24 +48,23 @@ export default {
   computed: {
     getDataGraph() {
       let data = this.$store.state.data
-      let countJan = 0
-      let countBtt = 0
-      let countFio = 0
-      let countPfz = 0
+      let countJovem = 0
+      let countAdulto = 0
+      let countMeiaIdade = 0
+      let countIdoso = 0
       data.map(item => {
-        if(item._source.vacina_fabricante_nome == "SINOVAC/BUTANTAN") {
-          countBtt += 1
-        } else if(item._source.vacina_fabricante_nome == "ASTRAZENECA/FIOCRUZ") {
-          countFio += 1
-        } else if(item._source.vacina_fabricante_nome == "PFIZER") {
-          countPfz += 1
+        if(item._source.paciente_idade <= 20) {
+          countJovem += 1
+        } else if(item._source.paciente_idade > 20 && item._source.paciente_idade <= 40) {
+          countAdulto += 1
+        } else if(item._source.paciente_idade > 40 && item._source.paciente_idade <= 60) {
+          countMeiaIdade += 1
         } else {
-          countJan += 1
+          countIdoso += 1
         }
       })
-      let dataCount = { countPfz, countJan, countFio, countBtt }
-      this.chartData.datasets[0].data.push(countPfz, countJan, countFio, countBtt)
-      return dataCount
+      this.chartData.datasets[0].data.push(countJovem, countAdulto, countMeiaIdade, countIdoso)
+      return data
     }
   }
 }

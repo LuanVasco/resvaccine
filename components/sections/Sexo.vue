@@ -1,7 +1,9 @@
 <template>
-  <section>
+  <section class="my-10">
       <header>
-        <h2 class="md:text-3xl lg:text-5xl font-medium text-center">Fabricantes</h2>
+        <h2 class="md:text-3xl lg:text-5xl font-medium text-center">
+          Sexo
+        </h2>
       </header>
       <div class="chart">
         <DoughnutChart v-if="getDataGraph" :chartData="chartData" :options="chartOptions" class="line-chart" />
@@ -16,11 +18,11 @@ export default {
   data() {
     return {
       chartData: {
-        labels: ["PFIZER", "JANSSEN", "ASTRAZENECA/FIOCRUZ", "SINOVAC/BUTANTAN"],
+        labels: ["Feminino", "Masculino", "Não Informado"],
         datasets: [
           {
             label: "Numbers",
-            backgroundColor: ["#FFD600", "#000000", "#226888", "#398EB6"],
+            backgroundColor: ["#3367D6", "#7BAAF7", "#C6DAFC"],
             fill: false,
             data: []
           }
@@ -46,24 +48,20 @@ export default {
   computed: {
     getDataGraph() {
       let data = this.$store.state.data
-      let countJan = 0
-      let countBtt = 0
-      let countFio = 0
-      let countPfz = 0
+      let countFeminino = 0
+      let countMasculino = 0
+      let countNInf = 0
       data.map(item => {
-        if(item._source.vacina_fabricante_nome == "SINOVAC/BUTANTAN") {
-          countBtt += 1
-        } else if(item._source.vacina_fabricante_nome == "ASTRAZENECA/FIOCRUZ") {
-          countFio += 1
-        } else if(item._source.vacina_fabricante_nome == "PFIZER") {
-          countPfz += 1
+        if(item._source.paciente_enumSexoBiologico == "F") {
+          countFeminino += 1
+        } else if(item._source.paciente_enumSexoBiologico == "M") {
+          countMasculino += 1
         } else {
-          countJan += 1
+          countNInf += 1
         }
       })
-      let dataCount = { countPfz, countJan, countFio, countBtt }
-      this.chartData.datasets[0].data.push(countPfz, countJan, countFio, countBtt)
-      return dataCount
+      this.chartData.datasets[0].data.push(countFeminino, countMasculino, countNInf)
+      return data
     }
   }
 }
