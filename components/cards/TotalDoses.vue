@@ -40,6 +40,29 @@ export default {
         },
       ]
     }
+  },
+  computed: {
+    getDataGraph() {
+      let data = this.$store.state.data
+      let countJan = 0
+      let countBtt = 0
+      let countFio = 0
+      let countPfz = 0
+      data.map(item => {
+        if(item._source.vacina_fabricante_nome == "SINOVAC/BUTANTAN") {
+          countBtt += 1
+        } else if(item._source.vacina_fabricante_nome == "ASTRAZENECA/FIOCRUZ") {
+          countFio += 1
+        } else if(item._source.vacina_fabricante_nome == "PFIZER") {
+          countPfz += 1
+        } else {
+          countJan += 1
+        }
+      })
+      let dataCount = { countPfz, countJan, countFio, countBtt }
+      this.chartData.datasets[0].data.push(countPfz, countJan, countFio, countBtt)
+      return dataCount
+    }
   }
 }
 </script>

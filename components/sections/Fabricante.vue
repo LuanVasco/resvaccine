@@ -20,7 +20,7 @@ export default {
         datasets: [
           {
             label: "Numbers",
-            backgroundColor: ["#FFD600", "#000000", "#226888", "#398EB6"],
+            backgroundColor: ["#FFD600", "#FFF301", "#226888", "#398EB6"],
             fill: false,
             data: []
           }

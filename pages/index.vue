@@ -1,10 +1,30 @@
 <template>
   <div>
     <MenuHeader />
-    <SectionsCidade/>
-    <div class="container mx-auto px-4">
+    <div class="container mx-auto my-20 px-4">
       <SectionsFabricante/>
+      <img 
+        src="/fabricantes.png" 
+        alt="Fabricantes"
+        class="mx-auto my-20"
+      />
+
       <SectionsPeopleAge />
+
+      <div class="flex items-center justify-between my-20">
+        <div class="w-1/2">
+          <img src="/idade-vacinado.png" alt="Idade Vacinados">
+        </div>
+        <div class="w-1/2">
+          <p class="text-2xl">
+            Quem não se vacina não coloca apenas a própria
+            saúde em risco, mas também a de seus familiares
+            e outras pessoas com quem tem contato, além de
+            contribuir para aumentar a circulação de doenças.
+          </p>
+        </div>
+      </div>
+
       <SectionsSexo />
     </div>
   </div>

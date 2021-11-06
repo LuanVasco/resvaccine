@@ -1,11 +1,12 @@
 <template>
   <div class="banner-box container mx-auto text-center flex-1">
     <h1 class="text-4xl font-medium">
-      Selecione seu estado e cidade
+      Média sobre doses em São Paulo
     </h1>
     <form 
       class="flex w-4/12 mt-6 mx-auto"
       @change="getInfo"
+      v-if="false"
     >
       <select class="w-32" name="Estado" id="estado">
         <option 

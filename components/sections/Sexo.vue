@@ -1,20 +1,25 @@
 <template>
-  <section class="my-10">
+  <section class="my-20">
       <header>
         <h2 class="md:text-3xl lg:text-5xl font-medium text-center">
           Sexo
         </h2>
       </header>
       <div class="chart">
-        <DoughnutChart v-if="getDataGraph" :chartData="chartData" :options="chartOptions" class="line-chart" />
+        <PieChart 
+          v-if="getDataGraph" 
+          :chartData="chartData" 
+          :options="chartOptions" 
+          class="line-chart" 
+        />
       </div>
   </section>
 </template>
 
 <script>
-import DoughnutChart from '../DoughnutChart.vue'
+import PieChart from '../PieChart.vue'
 export default {
-  components: { DoughnutChart },
+  components: { PieChart },
   data() {
     return {
       chartData: {
