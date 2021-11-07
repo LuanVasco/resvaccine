@@ -11,13 +11,28 @@
       </a>
     </nav>
     <SectionsBanner/>
-    <CardsTotalDoses/>
+    <CardsTotalDoses
+      :totalDose="getPrimeiraDose + getSegundaDose + getTerceiraDose"
+      :primeiraDose=getPrimeiraDose
+      :segundaDose=getSegundaDose
+      :terceiraDose=getTerceiraDose
+    />
   </header>
 </template>
 
 <script>
 export default {
- 
+ computed: {
+    getPrimeiraDose() {
+      return this.$store.state.primeira_dose
+    },
+    getSegundaDose() {
+      return this.$store.state.segunda_dose
+    },
+    getTerceiraDose() {
+      return this.$store.state.terceira_dose
+    },
+ }
 }
 </script>
 

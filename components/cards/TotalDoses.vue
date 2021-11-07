@@ -6,10 +6,21 @@
         v-for="(dose, index) in infoTotalDoses"
         :key="index"
       >
-        <h4 class="text-3xl font-medium mb-5">{{ dose.title }}</h4>
+        <h4 class="text-3xl font-medium mb-5">
+          {{ dose.title }}
+        </h4>
         <div class="valor-box rounded-xl">
-          <p class="text-4xl font-bold">
-            {{ dose.valor }}
+          <p v-if="index == 0" class="text-4xl font-bold">
+            {{ totalDose.toLocaleString() }}
+          </p>
+          <p v-if="index == 1" class="text-4xl font-bold">
+            {{ primeiraDose.toLocaleString() }}
+          </p>
+            <p v-if="index == 2" class="text-4xl font-bold">
+            {{ segundaDose.toLocaleString() }}
+          </p>
+            <p v-if="index == 3" class="text-4xl font-bold">
+            {{ terceiraDose.toLocaleString() }}
           </p>
         </div>
       </div>
@@ -19,24 +30,38 @@
 
 <script>
 export default {
+  props: {
+    totalDose: {
+      type: Number,
+      default: ""
+    },
+    primeiraDose: {
+      type: Number,
+      default: ""
+    },
+    segundaDose: {
+      type: Number,
+      default: ""
+    },
+    terceiraDose: {
+      type: Number,
+      default: ""
+    }
+  },
   data() {
     return {
       infoTotalDoses: [
         {
           title: 'Doses aplicadas',
-          valor: 80000000
         },
         {
           title: '1ª Dose Aplicada',
-          valor: 40000000
         },
         {
           title: '2ª Dose e Dose Única',
-          valor: 35000000
         },
         {
           title: 'Dose Reforço',
-          valor: 5000000
         },
       ]
     }

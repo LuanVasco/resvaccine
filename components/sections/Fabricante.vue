@@ -4,7 +4,12 @@
         <h2 class="md:text-3xl lg:text-5xl font-medium text-center">Fabricantes</h2>
       </header>
       <div class="chart">
-        <DoughnutChart v-if="getDataGraph" :chartData="chartData" :options="chartOptions" class="line-chart" />
+        <DoughnutChart 
+          v-if="getDataGraph" 
+          :chartData="chartData" 
+          :options="chartOptions" 
+          class="line-chart" 
+        />
       </div>
   </section>
 </template>
@@ -45,22 +50,10 @@ export default {
   },
   computed: {
     getDataGraph() {
-      let data = this.$store.state.data
-      let countJan = 0
-      let countBtt = 0
-      let countFio = 0
-      let countPfz = 0
-      data.map(item => {
-        if(item._source.vacina_fabricante_nome == "SINOVAC/BUTANTAN") {
-          countBtt += 1
-        } else if(item._source.vacina_fabricante_nome == "ASTRAZENECA/FIOCRUZ") {
-          countFio += 1
-        } else if(item._source.vacina_fabricante_nome == "PFIZER") {
-          countPfz += 1
-        } else {
-          countJan += 1
-        }
-      })
+      let countJan = this.$store.state.fab_janssen
+      let countBtt = this.$store.state.fab_butantan
+      let countFio = this.$store.state.fab_fiocruz
+      let countPfz = this.$store.state.fab_pfizer
       let dataCount = { countPfz, countJan, countFio, countBtt }
       this.chartData.datasets[0].data.push(countPfz, countJan, countFio, countBtt)
       return dataCount

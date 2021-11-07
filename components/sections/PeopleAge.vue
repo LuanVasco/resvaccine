@@ -26,7 +26,7 @@ export default {
         labels: ["0-15", "16-25", "26-35", "36-45", "46-55", "56-65", "65+"],
         datasets: [
           {
-            label: "Idades vacinados",
+            label: "Idades vacinados com todas as doses",
             backgroundColor: ["#ff0000", "#FFF301","#398EB6", "#FFD600", "#f2713b", "#1583eb", "#ea0f6d"],
             fill: false,
             data: []
@@ -52,33 +52,16 @@ export default {
   },
   computed: {
     getDataGraph() {
-      let data = this.$store.state.data
-      let countKids = 0
-      let countJovem = 0
-      let countJovemAdulto = 0
-      let countAdulto = 0
-      let countMeiaIdade = 0
-      let countAdultoIdoso = 0
-      let countIdoso = 0
-      data.map(item => {
-        if(item._source.paciente_idade <= 15) {
-          countKids += 1
-        } else if(item._source.paciente_idade > 16 && item._source.paciente_idade <= 25) {
-          countJovem += 1
-        } else if(item._source.paciente_idade > 26 && item._source.paciente_idade <= 35) {
-          countJovemAdulto += 1
-        } else if(item._source.paciente_idade > 36 && item._source.paciente_idade <= 45) {
-          countAdulto += 1
-        } else if(item._source.paciente_idade > 46 && item._source.paciente_idade <= 55) {
-          countMeiaIdade += 1
-        } else if(item._source.paciente_idade > 56 && item._source.paciente_idade <= 65) {
-          countAdultoIdoso += 1
-        } else {
-          countIdoso += 1
-        }
-      })
+      let countKids = this.$store.state.kids
+      let countJovem = this.$store.state.jovem
+      let countJovemAdulto = this.$store.state.jovemAdulto
+      let countAdulto = this.$store.state.adulto
+      let countMeiaIdade = this.$store.state.meiaIdade
+      let countAdultoIdoso = this.$store.state.adultoIdoso
+      let countIdoso = this.$store.state.idoso
+      let dataCount = { countKids, countJovem, countJovemAdulto, countAdulto, countMeiaIdade, countAdultoIdoso, countIdoso }
       this.chartData.datasets[0].data.push(countKids, countJovem, countJovemAdulto, countAdulto, countMeiaIdade, countAdultoIdoso, countIdoso)
-      return data
+      return dataCount 
     }
   }
 }

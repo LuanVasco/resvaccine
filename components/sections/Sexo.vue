@@ -23,11 +23,11 @@ export default {
   data() {
     return {
       chartData: {
-        labels: ["Feminino", "Masculino", "Não Informado"],
+        labels: ["Feminino", "Masculino"],
         datasets: [
           {
             label: "Numbers",
-            backgroundColor: ["#3367D6", "#7BAAF7", "#C6DAFC"],
+            backgroundColor: ["#3367D6", "#7BAAF7"],
             fill: false,
             data: []
           }
@@ -52,21 +52,11 @@ export default {
   },
   computed: {
     getDataGraph() {
-      let data = this.$store.state.data
-      let countFeminino = 0
-      let countMasculino = 0
-      let countNInf = 0
-      data.map(item => {
-        if(item._source.paciente_enumSexoBiologico == "F") {
-          countFeminino += 1
-        } else if(item._source.paciente_enumSexoBiologico == "M") {
-          countMasculino += 1
-        } else {
-          countNInf += 1
-        }
-      })
-      this.chartData.datasets[0].data.push(countFeminino, countMasculino, countNInf)
-      return data
+      let countFeminino = this.$store.state.sexo_feminino
+      let countMasculino = this.$store.state.sexo_masculino
+      let dataCount = { countFeminino, countMasculino }  
+      this.chartData.datasets[0].data.push(countFeminino, countMasculino)
+      return dataCount
     }
   }
 }
